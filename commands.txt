@@ -1,0 +1,15 @@
+cd "C:\Users\tejas\OneDrive\Desktop\MARKKETING EVENT\New folder\arthvidya_monopoly_v2"
+
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+
+pip install pygame
+
+python .\main.py
+
+
+
+
+
+
+irm https://raw.githubusercontent.com/yeongpin/cursor-free-vip/main/scripts/install.ps1 | iex
