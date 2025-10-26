@@ -49,14 +49,26 @@ def sync_to_github():
             subprocess.run([git_path, 'add', file], check=True)
             print(f"✅ Added {file}")
         
+        # Check if there are changes to commit
+        result = subprocess.run([git_path, 'diff', '--cached', '--quiet'], capture_output=True)
+        if result.returncode == 0:
+            print("ℹ️ No changes to commit")
+            return True
+        
         # Commit changes
         commit_message = f"Auto-sync game state - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
         subprocess.run([git_path, 'commit', '-m', commit_message], check=True)
         print("✅ Committed changes")
         
         # Push to GitHub
-        subprocess.run([git_path, 'push', 'origin', 'main'], check=True)
-        print("✅ Pushed to GitHub")
+        try:
+            subprocess.run([git_path, 'push', 'origin', 'main'], check=True)
+            print("✅ Pushed to GitHub")
+        except subprocess.CalledProcessError as e:
+            print(f"⚠️ Push failed: {e}")
+            print("💡 This might be due to authentication. Try running:")
+            print("   git config --global credential.helper store")
+            return False
         
         print(f"🎉 Successfully synced {len(existing_files)} files to GitHub!")
         return True
