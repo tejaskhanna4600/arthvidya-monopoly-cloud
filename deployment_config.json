@@ -1,0 +1,7 @@
+{
+  "local_access": "http://192.168.1.40:54858",
+  "public_access": true,
+  "port": 54858,
+  "mobile_optimized": true,
+  "deployment_time": "2025-10-26 06:57:30"
+}
